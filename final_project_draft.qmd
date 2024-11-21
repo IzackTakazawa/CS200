@@ -1,0 +1,38 @@
+---
+title: "CS200_final_project_draft"
+format: html
+editor: visual
+---
+
+##  
+
+```{r}
+#Install packages to connect with MySQL
+
+#install.packages("DBI")
+#install.packages("RMySQL")
+#install.packages("RMariaDB")
+```
+
+```{r}
+#Load in the correct libraries
+library(DBI)
+library(RMySQL)
+```
+
+```{r}
+con <- dbConnect(
+  RMySQL::MySQL(),
+  dbname = "your_database_name",
+  host = "Izack Takazawa",
+  port = 3306,
+  user = "your_username",
+  password = "your_password"
+)
+
+```
+
+```{r}
+dbListTables(con)
+
+```
