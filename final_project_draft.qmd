@@ -241,15 +241,77 @@ athlete_coaches_table <- dbGetQuery(con, "SELECT * FROM athlete_coaches;")
 print(athlete_coaches_table)
 ```
 
-QUERY TRANSFER PLAYERS ON BASEBALL TEAM\
-\
+##QUERRY FROM BASEBALL/BASKETBALL DATASET
+
+1\) QUERY TRANSFER PLAYERS ON BASEBALL TEAM
 
 ```{r}
-query_transfer_bsb_players <- "SELECT bsbName, bsbTransfer FROM baseball;"
+query_transfer_bsb_players <- "SELECT bsbName FROM baseball WHERE bsbTransfer = 'Yes';"
 
 result_transfer_bsb_players <- dbGetQuery(con, query_transfer_bsb_players)
 
 print(result_transfer_bsb_players)
+```
+
+2\) QUERY TRANSFER PLAYERS ON BASEBALL TEAM
+
+```{r}
+query_transfer_bkb_players <- "SELECT bkbName FROM basketball WHERE bkbTransfer = 'Yes';"  
+
+result_transfer_bkb_players <- dbGetQuery(con, query_transfer_bkb_players)  
+
+print(result_transfer_bkb_players)
+```
+
+3\) QUERY ALL JUNIOR BASEBALL PLAYERS ON BASEBALL TEAM
+
+```{r}
+query_junior_bsb_players <- "SELECT * FROM baseball WHERE bsbClass = 'Junior';"
+
+result_junior_bsb_players <- dbGetQuery(con, query_junior_bsb_players)
+
+print(result_junior_bsb_players)
+```
+
+4\) QUERY ALL JUNIOR BASKETBALL PLAYERS ON BASEBALL TEAM
+
+```{r}
+query_junior_bkb_players <- "SELECT * FROM basketball WHERE bkbClass = 'Junior';"  
+
+result_junior_bkb_players <- dbGetQuery(con, query_junior_bkb_players)  
+
+print(result_junior_bkb_players)
+```
+
+5\) QUERY PLAYERS COACHED UNDER CHAD KONISHI - HEAD BASEBALL COACH
+
+```{r}
+query_coaches_bsb_players <- "
+SELECT bsbName AS athlete_name, coachName
+FROM baseball b
+JOIN athlete_coaches ac ON b.bsbId = ac.bsbId
+JOIN coaches c ON ac.coachId = c.coachId
+WHERE c.coachName = 'Chad Konishi';"
+
+result_coaches_bsb_players <- dbGetQuery(con, query_coaches_bsb_players)
+
+print(result_coaches_bsb_players)
+
+```
+
+6\) QUERY PLAYERS COACHED UNDER ERIC BOVAIRD- HEAD BASKETBALL COACH
+
+```{r}
+query_coaches_bkb_players <- " 
+SELECT bkbName AS athlete_name, coachName 
+FROM basketball b 
+JOIN athlete_coaches ac ON b.bkbId = ac.bkbId 
+JOIN coaches c ON ac.coachId = c.coachId 
+WHERE c.coachName = 'Eric Bovaird';" 
+
+result_coaches_bkb_players <- dbGetQuery(con, query_coaches_bkb_players)  
+
+print(result_coaches_bkb_players) 
 ```
 
 \##############################################################################################################################################################################################################################
