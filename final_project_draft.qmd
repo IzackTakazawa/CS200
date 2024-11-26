@@ -26,7 +26,7 @@ con <- dbConnect(
   dbname = "final_project1",
   host = "localhost",
   port = 3306,
-  user = "izack",
+  user = "alex",
   password = "password"
 )
 
@@ -229,3 +229,5 @@ dbExecute(con, insert_query)
 result <- dbGetQuery(con, "SELECT * FROM athlete_coaches;")
 print(result)
 ```
+
+\##############################################################################################################################################################################################################################
