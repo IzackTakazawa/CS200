@@ -302,6 +302,7 @@ print(result_coaches_bkb_players)
 ```
 
 ```{r}
+#Disconnect your connection with RStudio and MYSQL
 dbDisconnect(con)
 ```
 
