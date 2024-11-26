@@ -69,7 +69,7 @@ print(result)
 CREATE BASEBALL TABLE
 
 ```{r}
-query <- "
+create_bsb_table <- "
 CREATE TABLE baseball(
 	bsbId INTEGER NOT NULL PRIMARY KEY,
     bsbName VARCHAR(40) NOT NULL,
@@ -79,11 +79,11 @@ CREATE TABLE baseball(
     bsbHigh VARCHAR(30) NOT NULL,
     bsbTransfer VARCHAR(5)
 );"
-dbExecute(con, query)
+dbExecute(con, create_bsb_table)
 ```
 
 ```{r}
-insert_query <- "
+insert_bsb_table <- "
 INSERT INTO baseball(bsbId, bsbName, bsbPos, bsbClass, bsbHome, bsbHigh, bsbTransfer)
 VALUES (1, 'Alex Greb', 'OF', 'Junior', 'Seattle, Washington', 'Ballard', 'Yes'),
 	   (2, 'Izack Takazawa', 'RHP', 'Sophmore', 'Honolulu, Hawaii', 'Iolani', 'Yes'),
@@ -91,19 +91,19 @@ VALUES (1, 'Alex Greb', 'OF', 'Junior', 'Seattle, Washington', 'Ballard', 'Yes')
        (4, 'Trysten Mooney', 'C', 'Junior', 'Helena Montana', 'Capital', 'Yes')
        ;
 "
-dbExecute(con, insert_query)
+dbExecute(con, insert_bsb_table)
 ```
 
 ```{r}
-result <- dbGetQuery(con, "SELECT * FROM baseball;")
-print(result)
+baseball_table <- dbGetQuery(con, "SELECT * FROM baseball;")
+print(baseball_table)
 
 ```
 
 CREATE BASKETBALL TABLE
 
 ```{r}
-query <- "
+create_bkb_table <- "
 CREATE TABLE basketball(
 	bkbId INTEGER NOT NULL PRIMARY KEY,
     bkbName VARCHAR(40) NOT NULL,
@@ -114,30 +114,30 @@ CREATE TABLE basketball(
     bkbTransfer VARCHAR(5)
 );"
 
-dbExecute(con, query)
+dbExecute(con, create_bkb_table)
 ```
 
 ```{r}
-insert_query <- "
+insert_bkb_table <- "
 INSERT INTO basketball(bkbId, bkbName, bkbPos, bkbClass, bkbHome, bkbHigh, bkbTransfer)
 VALUES (1, 'Fletcher MacDonald', 'F', 'Junior', 'Wollongong, Australia', 'Newington College', 'Yes'),
 	   (2, 'Kameron Ng', 'G', 'Senior', 'Kaneohe, Hawaii', 'Saint Francis', 'Yes'),
        (3, 'Jamir Thomas', 'G', 'Senior', 'Berkeley, California', 'Berkeley', 'Yes')
        ;
 "
-dbExecute(con, insert_query)
+dbExecute(con, insert_bkb_table)
 ```
 
 ```{r}
-result <- dbGetQuery(con, "SELECT * FROM basketball;")
-print(result)
+basketball_table <- dbGetQuery(con, "SELECT * FROM basketball;")
+print(basketball_table)
 
 ```
 
 CREATE COACHES TABLE
 
 ```{r}
-query <- "
+create_coaches_table <- "
 CREATE TABLE coaches (
     coachId INTEGER NOT NULL PRIMARY KEY,
     coachName VARCHAR(40) NOT NULL,
@@ -145,11 +145,11 @@ CREATE TABLE coaches (
     coachTeam VARCHAR(10) NOT NULL -- 'Baseball' or 'Basketball'
 );"
 
-dbExecute(con, query)
+dbExecute(con, create_coaches_table)
 ```
 
 ```{r}
-insert_query <- "
+insert_coaches_table <- "
 INSERT INTO coaches (coachId, coachName, coachRole, coachTeam)
 VALUES 
     (1, 'Chad Konishi', 'Head Coach', 'Baseball'),
@@ -162,12 +162,12 @@ VALUES
     (8, 'Roman Young', 'Assistant Coach', 'Basketball'),
     (9, 'Arthur King', 'Assistant Coach', 'Basketball');
 "
-dbExecute(con, insert_query)
+dbExecute(con, insert_coaches_table)
 ```
 
 ```{r}
-result <- dbGetQuery(con, "SELECT * FROM coaches;")
-print(result)
+coaches_table <- dbGetQuery(con, "SELECT * FROM coaches;")
+print(coaches_table)
 
 ```
 
@@ -176,7 +176,7 @@ print(result)
 CREATE ATHLETE_COACHES TABLE
 
 ```{r}
-query <- "
+create_athlete_coaches_table <- "
 CREATE TABLE athlete_coaches(
 	bsbId INTEGER NULL,
     bkbId INTEGER NULL,
@@ -187,11 +187,11 @@ CREATE TABLE athlete_coaches(
 );
 "
 
-dbExecute(con, query)
+dbExecute(con, create_athlete_coaches_table)
 ```
 
 ```{r}
-insert_query <- "
+insert_athlete_coaches_table <- "
 INSERT INTO athlete_coaches (bsbId, bkbId, coachId)
 VALUES 
     (1, NULL, 1), -- Alex Greb
@@ -233,12 +233,23 @@ VALUES
     (NULL, 3, 8),
     (NULL, 3, 9);
 "
-dbExecute(con, insert_query)
+dbExecute(con, insert_athlete_coaches_table)
 ```
 
 ```{r}
-result <- dbGetQuery(con, "SELECT * FROM athlete_coaches;")
-print(result)
+athlete_coaches_table <- dbGetQuery(con, "SELECT * FROM athlete_coaches;")
+print(athlete_coaches_table)
+```
+
+QUERY TRANSFER PLAYERS ON BASEBALL TEAM\
+\
+
+```{r}
+query_transfer_bsb_players <- "SELECT bsbName, bsbTransfer FROM baseball;"
+
+result_transfer_bsb_players <- dbGetQuery(con, query_transfer_bsb_players)
+
+print(result_transfer_bsb_players)
 ```
 
 \##############################################################################################################################################################################################################################
