@@ -33,6 +33,17 @@ con <- dbConnect(
 ```
 
 ```{r}
+con <- dbConnect(
+  RMySQL::MySQL(),
+  dbname = "final_project1",
+  host = "localhost",
+  port = 3306,
+  user = "izack",
+  password = "password"
+)
+```
+
+```{r}
 dbListTables(con)
 
 ```
