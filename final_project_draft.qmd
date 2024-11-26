@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-##  
+## 
 
 ```{r}
 #Install packages to connect with MySQL
@@ -23,16 +23,70 @@ library(RMySQL)
 ```{r}
 con <- dbConnect(
   RMySQL::MySQL(),
-  dbname = "your_database_name",
-  host = "Izack Takazawa",
+  dbname = "final_project",
+  host = "localhost",
   port = 3306,
-  user = "your_username",
-  password = "your_password"
+  user = "izack",
+  password = "password"
 )
 
 ```
 
 ```{r}
 dbListTables(con)
+
+```
+
+```{r}
+result <- dbGetQuery(con, "SELECT * FROM baseball;")
+print(result)
+
+```
+
+```{r}
+result <- dbGetQuery(con, "SELECT * FROM basketball;")
+print(result)
+
+```
+
+```{r}
+result <- dbGetQuery(con, "SELECT * FROM baseball;")
+print(result)
+
+```
+
+```{r}
+query <- "
+CREATE TABLE baseball(
+	bsbId INTEGER NOT NULL PRIMARY KEY,
+    bsbName VARCHAR(40) NOT NULL,
+    bsbPos VARCHAR(5) NULL,
+    bsbClass VARCHAR(10),
+    bsbHome VARCHAR(30) NOT NULL,
+    bsbHigh VARCHAR(30) NOT NULL,
+    bsbTransfer VARCHAR(5)
+);"
+dbExecute(con, query)
+
+```
+
+```{r}
+insert_query <- "
+
+INSERT INTO baseball(bsbId, bsbName, bsbPos, bsbClass, bsbHome, bsbHigh, bsbTransfer)
+VALUES (1, 'Alex Greb', 'OF', 'Junior', 'Seattle, Washington', 'Ballard', 'Yes'),
+	   (2, 'Izack Takazawa', 'RHP', 'Sophmore', 'Honolulu, Hawaii', 'Iolani', 'Yes'),
+       (3, 'Reyn Kapua', 'RHP', 'Sophmore', 'Honolulu, Hawaii', 'Mid-Pac', 'No'),
+       (4, 'Trysten Mooney', 'C', 'Junior', 'Helena Montana', 'Capital', 'Yes')
+       ;
+"
+
+# Execute the insert query
+dbExecute(con, insert_query)
+```
+
+```{r}
+result <- dbGetQuery(con, "SELECT * FROM baseball;")
+print(result)
 
 ```
