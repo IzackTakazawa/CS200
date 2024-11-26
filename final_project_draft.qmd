@@ -4,10 +4,10 @@ format: html
 editor: visual
 ---
 
-## 
+## CS200 Final Project Tutorial
 
 ```{r}
-#Install packages to connect with MySQL
+#Install packages to connect Rstudio with MySQL
 
 #install.packages("DBI")
 #install.packages("RMySQL")
@@ -15,12 +15,15 @@ editor: visual
 ```
 
 ```{r}
-#Load in the correct libraries
+#Load in the correct libraries so you are able to use the packages to connect MYSQL to Rstudio as well as code the tables and query properly
+
 library(DBI)
 library(RMySQL)
 ```
 
 ```{r}
+#This code connects the project you are currnetly working on in Rstudio to your MYSQL locally on your current computer you are using at this current moment
+
 con <- dbConnect(
   RMySQL::MySQL(),
   dbname = "final_project1",
@@ -30,6 +33,8 @@ con <- dbConnect(
   password = "password"
 ) 
 
+#Follow the directions on creating a new user and password in MYSQL
+#You must give all permisions to the user you put in both MYSQL and Rstudio's code above
 ```
 
 ```{r}
@@ -44,25 +49,8 @@ con <- dbConnect(
 ```
 
 ```{r}
+#Test to see if the connection works with your
 dbListTables(con)
-
-```
-
-```{r}
-result <- dbGetQuery(con, "SELECT * FROM baseball;")
-print(result)
-
-```
-
-```{r}
-result <- dbGetQuery(con, "SELECT * FROM basketball;")
-print(result)
-
-```
-
-```{r}
-result <- dbGetQuery(con, "SELECT * FROM baseball;")
-print(result)
 
 ```
 
@@ -171,7 +159,6 @@ print(coaches_table)
 
 ```
 
-\
 \
 CREATE ATHLETE_COACHES TABLE
 
@@ -312,6 +299,10 @@ WHERE c.coachName = 'Eric Bovaird';"
 result_coaches_bkb_players <- dbGetQuery(con, query_coaches_bkb_players)  
 
 print(result_coaches_bkb_players) 
+```
+
+```{r}
+dbDisconnect(con)
 ```
 
 \##############################################################################################################################################################################################################################
