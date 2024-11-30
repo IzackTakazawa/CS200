@@ -4,7 +4,7 @@ format: html
 editor: visual
 ---
 
-## CS200 Final Project Tutorial
+# CS200 Final Project Tutorial
 
 ```{r}
 #Install packages to connect Rstudio with MySQL
@@ -54,7 +54,9 @@ dbListTables(con)
 
 ```
 
-CREATE BASEBALL TABLE
+## Chaminade Sports Database
+
+### Create Baseball Table
 
 ```{r}
 create_bsb_table <- "
@@ -88,7 +90,7 @@ print(baseball_table)
 
 ```
 
-CREATE BASKETBALL TABLE
+### Create Basketball Table
 
 ```{r}
 create_bkb_table <- "
@@ -122,7 +124,7 @@ print(basketball_table)
 
 ```
 
-CREATE COACHES TABLE
+### Create Coaches Table
 
 ```{r}
 create_coaches_table <- "
@@ -159,8 +161,7 @@ print(coaches_table)
 
 ```
 
-\
-CREATE ATHLETE_COACHES TABLE
+### Create Athletes_Coaches Table
 
 ```{r}
 create_athlete_coaches_table <- "
@@ -228,7 +229,7 @@ athlete_coaches_table <- dbGetQuery(con, "SELECT * FROM athlete_coaches;")
 print(athlete_coaches_table)
 ```
 
-##QUERRY FROM BASEBALL/BASKETBALL DATASET
+## Query From Chaminade Sports Database
 
 1\) QUERY TRANSFER PLAYERS ON BASEBALL TEAM
 
@@ -307,3 +308,127 @@ dbDisconnect(con)
 ```
 
 \##############################################################################################################################################################################################################################
+
+# Online Shopping System Database
+
+## Connect to Database
+
+```{r}
+con <- dbConnect(
+  RMySQL::MySQL(),
+  dbname = "final_project1",
+  host = "localhost",
+  port = 3306,
+  user = "alex",
+  password = "password"
+) 
+```
+
+### Create Products Table
+
+```{r}
+create_products_table <- "
+CREATE TABLE products(
+   	productId INTEGER NOT NULL PRIMARY KEY,
+    productName VARCHAR(40) NOT NULL,
+    productCategory VARCHAR(25) NOT NULL,
+    productPrice DECIMAL(10,2) NOT NULL,
+    productStock INTEGER NOT NULL
+);"
+dbExecute(con, create_products_table)
+```
+
+#### Insert Data Into Products Table
+
+```{r}
+insert_products_table <- "
+INSERT INTO products(productId, productName, productCategory, productPrice, productStock)
+VALUES (1, 'Cheez-Its', 'Food', 6.99, 37),
+	     (2, 'Swimsuit', 'Clothing', 15.99, 24),
+       (3, 'Lamp', 'Homegoods', 24.49, 15),
+       (4, 'Batteries', 'Electronics', 12.99, 71),
+       (5, 'Snow Boots', 'Clothing', 75.99, 11),
+       (6, 'Magazine', 'Entertainment', 3.47, 29),
+       (7, 'Portable Charger', 'Electronics', 19.99, 9)
+       ;
+"
+dbExecute(con, insert_products_table)
+```
+
+#### Print Products Table
+
+```{r}
+products_table <- dbGetQuery(con, "SELECT * FROM products;")
+print(products_table)
+```
+
+### Create Customer Table
+
+```{r}
+create_customers_table <- "
+CREATE TABLE customers(
+	  custId INTEGER NOT NULL PRIMARY KEY,
+    custName VARCHAR(40) NOT NULL,
+    custEmail VARCHAR(40) NOT NULL,
+    custAddress VARCHAR(50) NOT NULL,
+    custPhone VARCHAR(15) NOT NULL
+);"
+dbExecute(con, create_customers_table)
+```
+
+#### Insert Data into Customer Table
+
+```{r}
+insert_customers_table <- "
+INSERT INTO customers(custId, custName, custEmail, custAddress, custPhone)
+VALUES (1, 'Tiger Woods', 'Twoods@Gmail.com', '1234 Smith St', '123-456-7890'),
+	     (2, 'Tom Brady', 'BradyTom@Yahoo.com', '5678 Jones Rd', '987-654-3210'),
+       (3, 'Wayne Gretzky', 'TheGreatOne@Gmail.com', '902 Chaminade Ave', '999-999-9999'),
+       (4, 'Lebron James', 'GOAT@Gmail.com', '3456 Bishop Blvd', '823-479-9009'),
+       (5, 'Barry Bonds', 'Juiced@Gmail.com', '7890 Giants Way', '291-373-4602')
+       ;
+"
+dbExecute(con, insert_customers_table)
+```
+
+#### Print Customers Table
+
+```{r}
+customers_table <- dbGetQuery(con, "SELECT * FROM customers;")
+print(customers_table)
+```
+
+### Create Orders Table
+
+```{r}
+create_orders_table <- "
+CREATE TABLE orders(
+	  ordId INTEGER NOT NULL PRIMARY KEY,
+    ordDate VARCHAR(15) NOT NULL,
+    ordCost DECIMAL(10,2) NOT NULL,
+    ordStatus VARCHAR(20) NOT NULL,
+    custId INTEGER NOT NULL,
+    FOREIGN KEY (custId) REFERENCES customers(custId)
+);"
+dbExecute(con, create_orders_table)
+```
+
+#### Insert Data into Orders Table
+
+```{r}
+insert_orders_table <- "
+INSERT INTO orders(ordId, ordDate, ordCost, ordStatus, custId)
+VALUES (1, 'Jul 4, 2024', 15.99, 'Shipping', 3),
+	     (2, 'Apr 1, 2024', 31.48, 'Delivered', 5),
+       (3, 'Jan 1, 2024', 88.98, 'Delivered', 1),
+       (4, 'Dec 25, 2024', 75.99, 'Pending', 5),
+       (5, 'Feb 14, 2023', 23.46, 'Delivered', 2)
+       ;
+"
+dbExecute(con, insert_orders_table)
+```
+
+```{r}
+orders_table <- dbGetQuery(con, "SELECT * FROM orders;")
+print(orders_table)
+```
