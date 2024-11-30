@@ -1,6 +1,12 @@
-CREATE DATABASE final_project;
+#CREATE DATABASE final_project1;
 
-#DROP DATABASE final_project;
+#CREATE USER 'izack'@'localhost' IDENTIFIED BY 'password';
+
+GRANT ALL PRIVILEGES
+ON final_project1.*
+TO "izack"@"localhost";
+
+#DROP DATABASE final_project1;
 
 #Create Baseball Database
 CREATE TABLE baseball(
@@ -118,8 +124,10 @@ VALUES
     (NULL, 3, 9);
 
 #Select * from athlete_coaches;
-    
-#SELECT USER();
+
+
+
+
 
 
 
