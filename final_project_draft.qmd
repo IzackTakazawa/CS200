@@ -428,7 +428,15 @@ VALUES (1, 'Jul 4, 2024', 15.99, 'Shipping', 3),
 dbExecute(con, insert_orders_table)
 ```
 
+#### Print Orders Table
+
 ```{r}
 orders_table <- dbGetQuery(con, "SELECT * FROM orders;")
 print(orders_table)
+```
+
+## Query's
+
+```{r}
+
 ```
