@@ -437,6 +437,33 @@ print(orders_table)
 
 ## Query's
 
-```{r}
+#### Select all products from the electronics category
 
+```{r}
+query_electronics <- "SELECT * FROM products WHERE productcategory = 'electronics';"
+
+
+result_query_electronics <- dbGetQuery(con, query_electronics) 
+
+print(result_query_electronics)
+```
+
+#### Select all orders that are more than \$30 
+
+```{r}
+query_expensive_orders <- "SELECT * FROM orders WHERE ordCost > 30;"
+
+result_query_expensive_orders <- dbGetQuery(con, query_expensive_orders)
+
+print(result_query_expensive_orders)
+```
+
+#### Select all orders that have been delivered
+
+```{r}
+query_delivered_orders <- "SELECT * FROM orders WHERE ordStatus = 'Delivered';"
+
+result_query_delivered_orders <- dbGetQuery(con, query_delivered_orders)
+
+print(result_query_delivered_orders)
 ```
